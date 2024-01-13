@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "visionpad"
 include(":app")
- 
+include(":visionpad")
