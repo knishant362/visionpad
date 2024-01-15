@@ -47,6 +47,8 @@ android {
 
 dependencies {
 
+    implementation(project(":visionpad"))
+
     implementation(libs.androidx.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

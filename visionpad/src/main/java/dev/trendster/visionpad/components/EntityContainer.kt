@@ -1,11 +1,12 @@
 package dev.trendster.visionpad.components
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,9 +18,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import dev.trendster.visionpad.R
-import androidx.compose.ui.unit.Constraints
 
 
 /**                                         EntityContainer
@@ -60,18 +61,19 @@ internal fun EntityContainer(
     modifier: Modifier = Modifier,
     isSelected: Boolean,
     entity: @Composable () -> Unit,
+    clickAction: () -> Unit
 ) {
 
     /** Composable for the delete toggle button. */
     val deleteToggle = @Composable {
         Toggle(
-            icon = painterResource(id = R.drawable.close),
+            icon = painterResource(id = R.drawable.ic_close),
             modifier = Modifier)
     }
 
     /** Composable for the scale toggle button. */
     val scaleToggle = @Composable {
-        Toggle(icon = painterResource(id = R.drawable.resize),
+        Toggle(icon = painterResource(id = R.drawable.ic_resize),
             modifier = Modifier)
     }
 
@@ -81,10 +83,14 @@ internal fun EntityContainer(
             modifier = Modifier
                 .border(
                     width = 2.dp,
-                    color = if (isSelected) Color.White else Color.Transparent,
+                    color = if (isSelected) Color.DarkGray else Color.Transparent,
                     shape = RoundedCornerShape(1.dp),
+                ).clickable (
+                    onClick = {
+                        clickAction()
+                        Log.d("CoreEntity", "Single Click Here")
+                    }
                 )
-                .fillMaxSize()
         )
     }
 
@@ -143,11 +149,11 @@ internal fun EntityContainer(
             /** Position the border and toggle buttons relative to the entity. as shown in Diagram */
             borderPlaceable.place(toggleOne.width / 2, toggleOne.height / 2)
             toggleOne.place(0, 0)
-            entityPlaceable.place(toggleOne.width, toggleOne.height)
             toggleTwo.place(
                 toggleOne.width + entityPlaceable.width,
                 toggleOne.height + entityPlaceable.height
             )
+            entityPlaceable.place(toggleOne.width, toggleOne.height)
         }
     }
 
@@ -160,7 +166,7 @@ internal fun EntityContainerPreview() {
     // Example usage of EntityContainer in a Compose hierarchy
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .size(300.dp)
             .background(Color.Gray)
             .padding(16.dp)
     ) {
@@ -171,14 +177,9 @@ internal fun EntityContainerPreview() {
             isSelected = true,
             entity = {
                 // Your entity content goes here
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color.Blue)
-                ) {
-                    // Your entity content
-                }
-            }
+
+            },
+            clickAction = {}
         )
     }
 }

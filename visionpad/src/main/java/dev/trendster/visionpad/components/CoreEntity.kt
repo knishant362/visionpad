@@ -18,6 +18,7 @@ internal fun CoreEntity(
     index: Int,
     isSelected: Boolean,
     element: Element,
+    clickAction: () -> Unit
 ) {
 
     val textEntity = @Composable { TextEntity(element = element) }
@@ -30,7 +31,9 @@ internal fun CoreEntity(
 
     EntityContainer(
         isSelected = isSelected,
-        entity = entity
+        entity = entity,
+        modifier = modifier,
+        clickAction = { clickAction()}
     )
 
 }
@@ -51,7 +54,7 @@ fun CoreEntityPreview(){
     )
 
     Column(modifier = Modifier.size(300.dp).background(color = Color.Blue)) {
-        CoreEntity(modifier = Modifier, index = 0, isSelected = true, element = demoElement)
+        CoreEntity(modifier = Modifier, index = 0, isSelected = true, element = demoElement, clickAction = {})
     }
 
 }

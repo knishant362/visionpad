@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import dev.trendster.visionpad.R
 
 
-val ToggleSize = 56.dp
+val ToggleSize = 24.dp
 @Composable
 internal fun Toggle(
     modifier: Modifier = Modifier,
@@ -28,5 +28,5 @@ internal fun Toggle(
 @Preview
 @Composable
 fun TogglePreview() {
-    Toggle(icon = painterResource(id = R.drawable.baseline_3d_rotation_24), modifier = Modifier)
+    Toggle(icon = painterResource(id = R.drawable.ic_close), modifier = Modifier)
 }
